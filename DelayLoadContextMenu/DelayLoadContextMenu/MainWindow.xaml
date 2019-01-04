@@ -1,0 +1,29 @@
+﻿<Window x:Class="DelayLoadContextMenu.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DelayLoadContextMenu"
+        mc:Ignorable="d"
+        x:Name="menuWindow"
+        Title="MainWindow"
+        Height="350"
+        Width="525">
+    <Grid>
+        <ListBox Tag="{Binding ElementName=menuWindow}">
+            <ListBoxItem>listItem1</ListBoxItem>
+            <ListBoxItem>listItem2</ListBoxItem>
+            <ListBoxItem>listItem3</ListBoxItem>
+            <ListBox.ContextMenu>
+                <ContextMenu DataContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Self}}">
+                    <MenuItem Header="menu123"
+                              IsSubmenuOpen="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget.Tag.IsSubMenuItemOpened}"
+                              ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget.Tag.SubMenuItems}">
+                    </MenuItem>
+                    <MenuItem Header="menu345" />
+                    <MenuItem Header="menu567" />
+                </ContextMenu>
+            </ListBox.ContextMenu>
+        </ListBox>
+    </Grid>
+</Window>
